@@ -264,39 +264,7 @@ class ClassicEdXPageExtractor(PageExtractor):
 
 
 class CurrentEdXPageExtractor(ClassicEdXPageExtractor):
-    """
-    A new page extractor for the recent changes in layout of edx
-    """
-    def extract_unit(self, text, BASE_URL, file_formats):
-        re_metadata = re.compile(r'data-metadata=&#39;(.*?)&#39;')
-        videos = []
-        match_metadatas = re_metadata.findall(text)
-        for match_metadata in match_metadatas:
-            metadata = html_parser.HTMLParser().unescape(match_metadata)
-            metadata = json.loads(html_parser.HTMLParser().unescape(metadata))
-            video_youtube_url = None
-            re_video_speed = re.compile(r'1.0\d+\:(?:.*?)(.{11})')
-            match_video_youtube_url = re_video_speed.search(metadata['streams'])
-            if match_video_youtube_url is not None:
-                video_id = match_video_youtube_url.group(1)
-                video_youtube_url = 'https://youtube.com/watch?v=' + video_id
-            # notice that the concrete languages come now in
-            # so we can eventually build the full urls here
-            # subtitles_download_urls = {sub_lang:
-            #                            BASE_URL + metadata['transcriptTranslationUrl'].replace('__lang__', sub_lang)
-            #                            for sub_lang in metadata['transcriptLanguages'].keys()}
-            available_subs_url = BASE_URL + metadata['transcriptAvailableTranslationsUrl']
-            sub_template_url = BASE_URL + metadata['transcriptTranslationUrl'].replace('__lang__', '%s')
-            mp4_urls = [url for url in metadata['sources'] if url.endswith('.mp4')]
-            videos.append(Video(video_youtube_url=video_youtube_url,
-                                available_subs_url=available_subs_url,
-                                sub_template_url=sub_template_url,
-                                mp4_urls=mp4_urls))
-
-        resources_urls = self.extract_resources_urls(text, BASE_URL,
-                                                     file_formats)
-        return Unit(videos=videos, resources_urls=resources_urls)
-
+    
     def extract_sections_from_html(self, page, BASE_URL):
         """
         Extract sections (Section->SubSection) from the html page
