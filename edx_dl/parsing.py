@@ -347,7 +347,8 @@ def get_page_extractor(url):
     factory method for page extractors
     """
     if url.startswith('https://courses.edx.org') or url.startswith(
-            'https://lagunita.stanford.edu'):
+            'https://lagunita.stanford.edu') or url.startswith(
+            'https://www.fun-mooc.fr'):
         return CurrentEdXPageExtractor()
 
     return ClassicEdXPageExtractor()
