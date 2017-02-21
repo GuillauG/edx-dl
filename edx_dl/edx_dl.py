@@ -74,6 +74,10 @@ OPENEDX_SITES = {
         'url': 'https://www.fun-mooc.fr',
         'courseware-selector': ('section', {'aria-label': 'Menu du cours'}),
     },
+    'bat-dur': {
+        'url': 'https://mooc-batiment-durable.fr',
+        'courseware-selector': ('section', {'aria-label': 'Menu du cours'}),
+    },
     'gwu-seas': {
         'url': 'http://openedx.seas.gwu.edu',
         'courseware-selector': ('nav', {'aria-label': 'Course Navigation'}),

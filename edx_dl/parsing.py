@@ -264,7 +264,7 @@ class ClassicEdXPageExtractor(PageExtractor):
 
 
 class CurrentEdXPageExtractor(ClassicEdXPageExtractor):
-    
+
     def extract_sections_from_html(self, page, BASE_URL):
         """
         Extract sections (Section->SubSection) from the html page
@@ -316,7 +316,8 @@ def get_page_extractor(url):
     """
     if url.startswith('https://courses.edx.org') or url.startswith(
             'https://lagunita.stanford.edu') or url.startswith(
-            'https://www.fun-mooc.fr'):
+            'https://www.fun-mooc.fr') or url.startswith(
+            'https://mooc-batiment-durable.fr'):
         return CurrentEdXPageExtractor()
 
     return ClassicEdXPageExtractor()
